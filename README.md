@@ -1,13 +1,14 @@
-# Experiment-06 Synchornous counters up counter
-### AIM: To implement 4 bit up and down counters and validate  functionality.
-### Name: DHANWANTH A
-### Register number: 23006796
-##### HARDWARE REQUIRED:  – PC, Cyclone II , USB flasher
-##### SOFTWARE REQUIRED:   Quartus prime
-### THEORY 
-
+# Name: DHANWANTH A
+# Register number: 23006796
+## Experiment:06 Synchornous counters up counter
+## AIM: To implement 3 bit up and down counters and validate  functionality.
+## HARDWARE REQUIRED:  
+PC, Cyclone II , USB flasher
+## SOFTWARE REQUIRED:  
+Quartus prime
+## THEORY 
 ## UP COUNTER 
-The counter is a digital sequential circuit and here it is a 4 bit counter, which simply means it can count from 0 to 15 and vice versa based upon the direction of counting (up/down). 
+The counter is a digital sequential circuit and here it is a 3 bit counter, which simply means it can count from 0 to 15 and vice versa based upon the direction of counting (up/down). 
 
 The counter (“count“) value will be evaluated at every positive (rising) edge of the clock (“clk“) cycle.
 The Counter will be set to Zero when “reset” input is at logic high.
@@ -19,7 +20,7 @@ The main problem facing us is to determine how to connect these flip-flops toget
 Examine the following binary count sequence, paying attention to patterns preceding the “toggling” of a bit between 0 and 1:
 Binary count sequence, paying attention to patterns preceding the “toggling” of a bit between 0 and 1.
 
-Note that each bit in this four-bit sequence toggles when the bit before it (the bit having a lesser significance, or place-weight), toggles in a particular direction: from 1 to 0.
+Note that each bit in this 3-bit sequence toggles when the bit before it (the bit having a lesser significance, or place-weight), toggles in a particular direction: from 1 to 0.
 
 
 
@@ -32,10 +33,12 @@ The Q outputs of each flip-flop will serve as the respective binary bits of the 
 
  
 
-Four-bit “Up” Counter
-![image](https://user-images.githubusercontent.com/36288975/169644758-b2f4339d-9532-40c5-af40-8f4f8c942e2c.png)
+## 3-bit Up Counter:
 
+![Screenshot 2024-01-03 162218](https://github.com/dhanwanth07/Exp-7-Synchornous-counters-/assets/152170135/f3369722-0468-4c3b-8275-0c1bdca57e8f)
 
+## 3-bit Down counter:
+![Screenshot 2024-01-03 161930](https://github.com/dhanwanth07/Exp-7-Synchornous-counters-/assets/152170135/52da4525-3c91-4aee-b706-4dd767e229fe)
 
 ### Procedure
 1. Create a New Project:
@@ -63,32 +66,62 @@ Four-bit “Up” Counter
    - Once Waveform is created Right Click on the Input/Output Panel > " Insert Node or Bus" > Click on Node Finder > Click On "List" > Select All.
    - Give the Input Combinations according to the Truth Table amd then simulate the Output Waveform.
 
-
-
-### PROGRAM 
 Program for flipflops  and verify its truth table in quartus using Verilog programming.
 
-module counter(clk,A);
+### PROGRAM:
+## UP COUNTER
+~~~
+module upCounters(clk, A);
 input clk;
-output reg[0:3]A;
-always@(posedge clk)
+output reg [2:0]A;
+always @(posedge clk)
 begin
-A[0]=((((A[1])&(A[2]))&A[3])^A[0]);
-A[1]=(((A[2])&(A[3]))^A[1]);
-A[2]=((A[3])^A[2]);
-A[3]=1^A[3];
+	A[2]=(((A[0])&(A[1]))^A[2]);
+	A[1]=(A[0])^A[1];
+	A[0]=A[0]^1;
 end
 endmodule
-
-
+~~~
+## DOWN COUNTER:
+~~~
+module downCounters(clk,A);
+input clk;
+output reg [2:0]A;
+always @(posedge clk)
+begin
+	A[2]=(((~A[0])&(~A[1]))^A[2]);
+	A[1]=(~A[0])^A[1];
+	A[0]=1^A[0];
+end 
+endmodule
+~~~
 ### RTL LOGIC UP COUNTER 
-![image](https://github.com/Nijeesh-bit/Exp-7-Synchornous-counters-/assets/89188014/2083493c-2eec-4ade-ac68-22892f14a0cb)
 
-### TIMING DIGRAMS FOR UP COUNTER  
-<img width="790" alt="image" src="https://github.com/Nijeesh-bit/Exp-7-Synchornous-counters-/assets/89188014/972cc60c-b402-49c9-ac08-738ea2fbba02">
+![Screenshot 2024-01-03 161055](https://github.com/dhanwanth07/Exp-7-Synchornous-counters-/assets/152170135/c5802cda-eb0d-4c0a-90af-efc3d3058c71)
 
-### TRUTH TABLE FOR UP COUNTER
-<img width="287" alt="image" src="https://github.com/Nijeesh-bit/Exp-7-Synchornous-counters-/assets/89188014/c3819e0a-3ca1-498a-bbf3-fa0b70cad9ca">
+## RTL LOGIC DOWN COUNTER:
+![Screenshot 2024-01-03 161106](https://github.com/dhanwanth07/Exp-7-Synchornous-counters-/assets/152170135/ba1f05f9-5b60-4392-b377-0d60bb7360c6)
+
+
+### TIMING DIGRAMS:
+
+## UP COUNTER:
+
+![Screenshot 2024-01-03 161556](https://github.com/dhanwanth07/Exp-7-Synchornous-counters-/assets/152170135/c3a999a7-d27b-4dc5-9ea1-84e7beee45b5)
+
+## DOWN COUNTER:
+![Screenshot 2024-01-03 161607](https://github.com/dhanwanth07/Exp-7-Synchornous-counters-/assets/152170135/fc34c2e5-0280-43c2-a27e-49e078adc89b)
+
+
+### TRUTH TABLE:
+
+## UP COUNTER:
+
+![Screenshot 2024-01-03 161414](https://github.com/dhanwanth07/Exp-7-Synchornous-counters-/assets/152170135/4890b4a6-ea50-4baa-a370-98df778119e7)
+
+## DOWN COUNTER:
+
+![Screenshot 2024-01-03 161429](https://github.com/dhanwanth07/Exp-7-Synchornous-counters-/assets/152170135/6e9a2726-67d6-44fa-b874-7683cc7523a9)
 
 ### RESULTS 
 By this we have verified the truth table of 4-bit up-counter using verilog.
